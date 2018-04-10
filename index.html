@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+
+	<!-- Creating styles for all buttons, words, and boxes -->
+	<style>
+	.button {
+	    background-color: #4CAF50;
+	    border: none;
+	    color: white;
+	    padding: 16px 32px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16px;
+	    margin: 4px 2px;
+	    -webkit-transition-duration: 0.4s;
+	    transition-duration: 0.4s;
+	    cursor: pointer;
+			}
+	.button:active {
+  		background-color: #3e8e41;
+  		box-shadow: 0 5px #666;
+  		transform: translateY(4px);
+					}
+	.button1 {
+	    background-color: lightgreen;
+	    color: black;
+	    border: 2px solid #4CAF50;
+			}
+
+	.button1:hover {
+  	  	background-color: #4CAF50;
+    	color: white;
+    	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.54),0 17px 50px 0 rgba(0,0,0,0.19);
+			}
+	.button2 {
+    	background-color: #FF8C00;
+    	color: black;
+    	border: 2px solid #DC143C;
+			}
+	.button2:hover {
+    	background-color: #008CBA;
+    	color: white;
+    	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.54),0 17px 50px 0 rgba(0,0,0,0.19);
+			}
+	.boxes{
+		margin-left: 42%;
+		margin-right: 31%;
+	}
+	.return{
+		position: relative;
+		top: -146px;
+		left: 814px;
+		color: black;
+		font-style: italic;
+		font-variant: small-caps;
+		background-color: lightgrey;
+		margin-right: 80%;
+		text-align: center;
+		border: 2px solid;
+	}
+	.button1{
+		position: center;
+		top: -150px;
+		left: 810px;
+		font-weight: lighter;
+
+	}
+	.button2{
+		position: relative;
+		top: -150px;
+		left: 848px;
+	}
+
+	body {
+	 	background-image:url("TEAMJ.jpg");
+		background-position:50% 2%;
+		background-size: 1300px 895px;
+		background-repeat: no-repeat;
+	 }
+/*Title*/
+	h1{
+		text-align:center;
+		position: relative;
+		left: -33px;
+		}
+/*Signal Inputs*/
+	ul{
+		border-style: solid;
+		font-family: Impact;
+		background-color: lightgrey;
+		text-align: center;
+		font-weight: bold;
+		position: relative;
+		top:-12px;
+		left: -102px;
+			
+		}
+	button{
+		position: relative;
+		top: -116px;
+		left: 800px;
+		padding: 0px;
+		}
+	
+	h2{
+		
+		}
+	.loader {
+		animation: spin 2s linear infinite;
+		display: block;
+		margin: 0px;
+		z-index: 2;
+	}
+	i{
+		padding: 0px;
+	}
+	.run{
+		z-index: 1;
+		display: block;
+	}
+
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+	 </style>
+
+<title>GUI</title>
+</head>
+
+
+<body>
+		<header>
+			<h1>Rotary Signal Processor GUI <position: center></h1>
+		</header>
+	<!--<form action="pyserial.php" method="get">-->
+		<div class="boxes">
+			<section style="color:Black;">
+				<ul>
+					Shutter Gear 1: <input type="text" id="Shutter1" name="shutter1" maxlength="1" onkeypress="return isNumberKey(event)">
+				</ul>
+			</section>
+
+			<section>
+				<ul>
+					Shutter Gear 2: <input type="text" id="Shutter2" name="shutter2" maxlength="1" onkeypress="return isNumberKey(event)">
+				</ul>
+			</section>
+
+			<section>
+				<ul>
+					Shutter Gear 3: <input type="text" id="Shutter3" name="shutter3" maxlength="1" onkeypress="return isNumberKey(event)">
+
+				</ul>
+			</section>
+		</div>
+
+
+		<h2>
+			<button class="button button1" id="lib-button" type="submit">
+				<div class="run">Run</div>
+				<div class="loader"><i class="fas fa-cog fa-2x"></i></div>
+			</button>
+			<button class="button button2" id="lib-button2">
+				<div class="run">Reset</div>
+				<div class="loader"><i class="fas fa-cog fa-2x"></i></div>
+			</button>
+			<div class="return" id="story"></div>
+		</h2>
+	<!--</form>-->
+
+	<script> 
+		function libIt() {
+			var storyDiv = document.getElementById("story");
+			var Shutter1 = document.getElementById("Shutter1").value; 
+			var Shutter2 = document.getElementById("Shutter2").value;
+			var Shutter3 = document.getElementById("Shutter3").value;
+			storyDiv.innerHTML = "The combination you input is " + Shutter1+Shutter2+Shutter3 ;
+			$(document).get("sendCode.php", { s1:Shutter1, s2:Shutter2, s3:Shutter3 });
+            console.log("here");
+            code = Shutter1+Shutter2+Shutter3;
+            console.log(code);
+			return code;
+		}
+		function libIt2() {
+			var storyDiv2 = document.getElementById("story");
+			storyDiv2.innerHTML = "Reset";
+			return storyDiv2.innerHTML;
+		}
+// Run and reset buttons
+		$("#lib-button").click(function(){
+            var shutter1 = $("#Shutter1").val();
+            var shutter2 = $("#Shutter2").val();
+            var shutter3 = $("#Shutter3").val();
+            var code = shutter1+shutter2+shutter3;
+		    $("#story").html("The combination you input is " + code);
+            $('.run').hide();
+            $('.loader').show();
+            $.ajax({
+                type: "GET",
+                url: 'pyserial.php',
+                data: {'shutter1': shutter1, 'shutter2': shutter2,'shutter3': shutter3},
+				success: function(data){
+                    alert(data);
+                    $('.run').show();
+                    $('.loader').hide();
+				}
+            });
+		});
+
+        $("#lib-button2").click(function(){
+            $("#story").html("Resetting Device...");
+            $('.run').hide();
+            $('.loader').show();
+            $.ajax({
+                type: "GET",
+                url: 'pyserial.php',
+                data: {'reset': 'reset'},
+                success: function(data){
+                    alert(data);
+                    $('.run').show();
+                    $('.loader').hide();
+                    $("#story").html("Done Resetting.");
+
+                }
+            });
+        });
+
+
+        function isNumberKey(evt){
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+
+        $(document).ready(function(){
+            $('.loader').hide();
+        });
+		// var libButton = document.getElementById("lib-button");
+		// libButton.addEventListener('click', libIt);
+		// var libButton2 = document.getElementById("lib-button2");
+		// libButton2.addEventListener('click', libIt2);
+ 	</script>
+
+</body>
+</html>
+
+
