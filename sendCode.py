@@ -6,16 +6,12 @@ import time
 
 
 def main():
-    ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=30)
+    ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=30, dsrdtr=False)
     time.sleep(2)
     nBlinks = str(sys.argv[1])
     # print(nBlinks.encode())
     result = ser.write(nBlinks.encode())
     # print(result)
-    if (result):
-        print("SENT "+ nBlinks + " TO DEVICE")
-    else:
-        print("ERROR")
     line = ser.readline()
     print(line)
     ser.close()

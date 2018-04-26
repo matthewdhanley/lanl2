@@ -230,6 +230,9 @@
 		}
 // Run and reset buttons
 		$("#lib-button").click(function(){
+            s1 =  s1 + $("#Shutter1").val();
+            s2 =  s2 + $("#Shutter2").val();
+            s3 =  s3 + $("#Shutter3").val();
             var shutter1 = $("#Shutter1").val();
             var shutter2 = $("#Shutter2").val();
             var shutter3 = $("#Shutter3").val();
@@ -256,13 +259,14 @@
             $.ajax({
                 type: "GET",
                 url: 'pyserial.php',
-                data: {'reset': 'reset'},
+                data: {'shutter1': full_rev - s1%full_rev, 'shutter2': full_rev - s2%full_rev,'shutter3': full_rev - s3%full_rev},
                 success: function(data){
                     alert(data);
                     $('.run').show();
                     $('.loader').hide();
-                    $("#story").html("Done Resetting.");
-
+                    s1 = 0;
+                    s2 = 0;
+                    s3 = 0;
                 }
             });
         });
@@ -270,14 +274,19 @@
 
         function isNumberKey(evt){
             var charCode = (evt.which) ? evt.which : event.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57))
+            if (charCode > 31 && (charCode < 48 || charCode > 56))
                 return false;
             return true;
         }
 
         $(document).ready(function(){
             $('.loader').hide();
+
         });
+        var full_rev = 9;
+        var s1 = 0;
+        var s2 = 0;
+        var s3 = 0;
 		// var libButton = document.getElementById("lib-button");
 		// libButton.addEventListener('click', libIt);
 		// var libButton2 = document.getElementById("lib-button2");

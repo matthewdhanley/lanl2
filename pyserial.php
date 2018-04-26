@@ -1,9 +1,9 @@
 <?php
-if(!empty($_GET['reset'])){
-    $sendString = 'reset';
-}
-else {
-    if (empty($_GET['shutter1']) || empty($_GET['shutter2']) || empty($_GET['shutter3'])) {
+//if($_GET['reset'] == 'reset'){
+//    $sendString = $_GET['reset'];
+//}
+//else {
+    if (($_GET['shutter1']=='') || $_GET['shutter2']=='' || $_GET['shutter1']=='') {
         die("ERROR!!!\nYou have an empty field!!!");
     }
 
@@ -12,7 +12,7 @@ else {
     }
 
     $sendString = $_GET['shutter1'] . $_GET['shutter2'] . $_GET['shutter3'];
-}
+//}
 $command = '/usr/bin/python2.7 /home/matt/senior-design/web/sendCode.py '. $sendString; // . $sendString;
 exec($command, $out, $rv);
 echo("Successfully sent " . $sendString);
